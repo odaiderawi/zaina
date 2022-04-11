@@ -1,0 +1,47 @@
+{
+  "name": "mezian/zaina",
+  "description": "zaina migrations, seeders and api",
+  "authors": [
+    {
+      "name": "Mezian",
+      "email": "odai@mezian.co"
+    }
+  ],
+  "require": {
+    "spatie/laravel-permission": "^4.0.0",
+    "cviebrock/eloquent-sluggable": "^7.0.0",
+    "laravel-notification-channels/facebook-poster": "^3.0.0",
+    "laravel/passport": "^7.0",
+    "spatie/laravel-analytics": "^3.6",
+    "spatie/laravel-paginateroute": "^2.7",
+    "intervention/image": "^2.4",
+    "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+    "staudenmeir/eloquent-eager-limit": "^1.0",
+    "toolkito/larasap": "^1.2.6"
+  },
+  "autoload": {
+    "files": [
+      "/src/helpers.php"
+    ],
+    "psr-4": {
+      "Mezian\\Zaina\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mezian\\Zaina\\ZainaServiceProvider"
+      ],
+      "aliases": {
+      }
+    }
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/odaiderawi/laravel-social-auto-posting",
+      "type": "git"
+    }
+  ]
+}
