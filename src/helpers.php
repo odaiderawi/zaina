@@ -12,8 +12,8 @@ if ( ! function_exists( 'zaina_image' ) )
     {
       if ( $size )
       {
-//                return '/storage/' . $size . '/' . $path;
-        return 'https://api.al-aalem.com/api/555x323/uploads/uploadCenter/2021/03/1615251748jpvpr.jpg';
+        return '/storage/' . $size . '/' . $path;
+//        return 'https://api.al-aalem.com/api/555x323/uploads/uploadCenter/2021/03/1615251748jpvpr.jpg';
       }
 
       return '/storage/' . $path;
