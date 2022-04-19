@@ -78,30 +78,43 @@ class FileController extends ZainaController
     }
   }
 
-  public function getAllImages( $year, $month, $count )
+  public function getAllImages( $year, $month, $count, $type )
   {
+
+    switch ( $type )
+    {
+      case 'videos':
+        $file_type = File::TYPE_VIDEO;
+        break;
+      case 'files':
+        $file_type = File::TYPE_FILE;
+        break;
+      default:
+        $file_type = File::TYPE_PHOTO;
+        break;
+    }
 
     if ( $year == 0 && $month == 0 )
     {
-      $photos = File::where( 'type', File::TYPE_PHOTO )->orderBy( 'id', 'Desc' )->paginate( $count );
+      $photos = File::where( 'type', $file_type )->orderBy( 'id', 'Desc' )->paginate( $count );
 
     } else if ( $month == 0 )
     {
       $photos = File::whereYear( 'created_at', '=', $year )
-                    ->where( 'type', File::TYPE_PHOTO )
+                    ->where( 'type', $file_type )
                     ->orderBy( 'id', 'Desc' )
                     ->paginate( $count );
 
     } else if ( $year == 0 )
     {
       $photos = Photo::whereMonth( 'created_at', $month )
-                     ->where( 'type', File::TYPE_PHOTO )
+                     ->where( 'type', $file_type )
                      ->orderBy( 'id', 'Desc' )
                      ->paginate( $count );
 
     } else
     {
-      $photos = File::where( 'type', File::TYPE_PHOTO )
+      $photos = File::where( 'type', $file_type )
                     ->whereYear( 'created_at', $year )
                     ->whereMonth( 'created_at', $month )
                     ->orderBy( 'id', 'Desc' )
