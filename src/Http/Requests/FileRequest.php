@@ -52,7 +52,7 @@ class FileRequest extends FormRequest
       case 'POST':
       {
         return [
-          'file' => 'max:10240|required|mimes:xlsx,docx,jpeg,bmp,png,jpg,gif,pdf,mp4',
+          'file' => 'max:10240|required|mimes:xlsx,docx,jpeg,bmp,png,jpg,gif,pdf,mp4,svg,mp3,webp',
         ];
       }
       case 'PUT':
