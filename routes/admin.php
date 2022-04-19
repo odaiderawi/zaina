@@ -99,7 +99,7 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
 
   Route::post( 'uploadFiles', 'FileController@uploadFiles' );
 
-  Route::get( '/getAllImages/{year}/{month}/{count}', 'FileController@getAllImages' );
+  Route::get( '/getAllImages/{year}/{month}/{count}/{type?}', 'FileController@getAllImages' );
   Route::get( '/getFileById/{id}', 'FileController@getFileById' );
 
 } );

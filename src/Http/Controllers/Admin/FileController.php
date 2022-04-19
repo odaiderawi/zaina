@@ -78,7 +78,7 @@ class FileController extends ZainaController
     }
   }
 
-  public function getAllImages( $year, $month, $count, $type )
+  public function getAllImages( $year, $month, $count, $type = File::TYPE_PHOTO )
   {
 
     switch ( $type )
