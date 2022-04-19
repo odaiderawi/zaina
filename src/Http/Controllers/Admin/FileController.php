@@ -45,7 +45,8 @@ class FileController extends ZainaController
 
       $ext = substr( strrchr( $name, '.' ), 1 );
 
-      if ( $ext == 'jpg' || $ext == 'png' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'JPG' || $ext == 'PNG' || $ext == 'JPEG' || $ext == 'GIF' || $ext == 'BMP' )
+      if ( $ext == 'jpg' || $ext == 'png' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'JPG' || $ext == 'PNG'
+           || $ext == 'JPEG' || $ext == 'GIF' || $ext == 'BMP' || $ext == 'svg' || $ext == 'SVG' )
       {
         $uploadfile->type = File::TYPE_PHOTO;
         $uploadfile->save();
