@@ -87,4 +87,14 @@ class UserController extends ZainaController
 
   }
 
+  public function disable( $id )
+  {
+    $user       = User::query()->findOrFail( $id );
+    $is_disable = $user->is_disable;
+
+    $user->update( [ 'is_disable' => ! $is_disable ] );
+
+    return 'success';
+  }
+
 }
