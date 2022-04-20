@@ -108,9 +108,9 @@ class UserController extends ZainaController
     }
 
     #Update the new Password
-    User::whereId( Auth::id() )->update( [
-                                           'password' => Hash::make( $request->new_password ),
-                                         ] );
+    User::whereId( Auth::guard( 'api' )->id() )->update( [
+                                                           'password' => Hash::make( $request->new_password ),
+                                                         ] );
 
     return response()->json( [ 'status' => 'failed', 'success' => 'Password changed successfully!' ] );
 
