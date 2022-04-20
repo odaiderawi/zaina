@@ -101,10 +101,10 @@ class UserController extends ZainaController
                         ] );
 
     #Match The Old Password
-    
+
     if ( ! Hash::check( $request->old_password, Auth::guard( 'api' )->user()->password ) )
     {
-      return "error,  Old Password Doesn't match!";
+      return response()->json( [ 'status' => 'failed', 'message' => 'Old password does not match' ], 422 );
     }
 
     #Update the new Password
@@ -112,7 +112,8 @@ class UserController extends ZainaController
                                            'password' => Hash::make( $request->new_password ),
                                          ] );
 
-    return "Password changed successfully!";
+    return response()->json( [ 'status' => 'failed', 'success' => 'Password changed successfully!' ] );
+
   }
 
 }
