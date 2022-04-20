@@ -14,6 +14,8 @@ class User extends Authenticatable
 
   protected $with = [ 'roles' ];
 
+  protected $guard_name = 'api';
+
   use Notifiable, HasRoles, HasApiTokens;
 
   /**
