@@ -13,6 +13,7 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
     Route::post( 'register', 'UserController@register' );
     Route::PUT( 'update/{id}', 'UserController@update' );
     Route::get( 'disable/{id}', 'UserController@disable' );
+    Route::post( 'changePassword', 'UserController@changePassword' );
   } );
 
   Route::apiResource( 'ads', 'AdController' );
