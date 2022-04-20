@@ -2,9 +2,9 @@
 
 namespace Mezian\Zaina\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Mezian\Zaina\Http\Controllers\ZainaController;
 use Mezian\Zaina\Http\Requests\UserRequest;
 use Mezian\Zaina\Models\User;
