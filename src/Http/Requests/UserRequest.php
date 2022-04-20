@@ -37,13 +37,13 @@ class UserRequest extends FormRequest
           'first_name'   => 'required|string|min:3|max:30',
           'last_name'    => 'required|string|min:3|max:30',
           'display_name' => 'required|string|min:3|max:30',
-          'mobile'       => 'min:5|max:30',
-          'facebook'     => 'string|min:5|max:200',
-          'twitter'      => 'string|min:5|max:200',
-          'image'        => 'string',
-          'description'  => 'string|min:5',
-          'address'      => 'string|min:3',
-          'is_disable'   => 'boolean',
+          'mobile'       => 'nullable|min:5|max:30',
+          'facebook'     => 'nullable|string|min:5|max:200',
+          'twitter'      => 'nullable|string|min:5|max:200',
+          'image'        => 'nullable|string',
+          'description'  => 'nullable|string|min:5',
+          'address'      => 'nullable|string|min:3',
+          'is_disable'   => 'nullable|boolean',
         ];
       }
       case 'PUT':
@@ -57,11 +57,11 @@ class UserRequest extends FormRequest
           'display_name' => 'required|string|min:3|max:30',
           'mobile'       => 'nullable|min:5|max:30',
           'facebook'     => 'nullable|min:5|max:200',
-          'twitter'      => 'string|min:5|max:200',
-          'image'        => 'string',
-          'description'  => 'string|min:5',
-          'address'      => 'string|min:3',
-          'is_disable'   => 'boolean',
+          'twitter'      => 'nullable|string|min:5|max:200',
+          'image'        => 'nullable|string',
+          'description'  => 'nullable|string|min:5',
+          'address'      => 'nullable|string|min:3',
+          'is_disable'   => 'nullable|boolean',
         ];
       }
       default:
