@@ -35,6 +35,7 @@ class User extends Authenticatable
     'description',
     'address',
     'is_disable',
+    'type_id',
   ];
 
   /**

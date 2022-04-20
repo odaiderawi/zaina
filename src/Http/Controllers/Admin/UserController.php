@@ -40,11 +40,6 @@ class UserController extends ZainaController
     }
   }
 
-  /**
-   * Register api
-   *
-   * @return \Illuminate\Http\Response
-   */
   public function register( UserRequest $request )
   {
     return $request->save();

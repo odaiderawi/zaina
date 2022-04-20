@@ -2,8 +2,10 @@
 
 namespace Mezian\Zaina\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
 use Mezian\Zaina\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserRequest extends FormRequest
 {
@@ -77,6 +79,14 @@ class UserRequest extends FormRequest
     $success['email']    = $user->email;
     $success['username'] = $user->username;
 
+    $role = request( 'type_id' );
+    if ( isset( $role ) )
+    {
+
+      $role_r = Role::where( 'id', '=', $role )->firstOrFail();
+      $user->assignRole( $role_r );
+    }
+
     return response()->json( [ 'success' => $success ], $this->successStatus );
 
   }
@@ -91,6 +101,18 @@ class UserRequest extends FormRequest
 
     $success['email']    = $user->email;
     $success['username'] = $user->username;
+
+    $roles = $user->getRoleNames();
+    foreach ( $roles as $rol )
+    {
+      $user->removeRole( $rol );
+    }
+    $role = request( 'type_id' );
+    if ( isset( $role ) )
+    {
+      $role_r = Role::where( 'id', '=', $role )->firstOrFail();
+      $user->assignRole( $role_r );
+    }
 
     return response()->json( [ 'success' => $success ], $this->successStatus );
 
