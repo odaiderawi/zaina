@@ -73,8 +73,8 @@ class UserRequest extends FormRequest
 
   public function save()
   {
-    $input = request()->all();
-//        $input['password'] = bcrypt($input['password']);
+    $input               = request()->all();
+    $input['password']   = bcrypt( $input['password'] );
     $user                = User::create( $input );
     $success['email']    = $user->email;
     $success['username'] = $user->username;
