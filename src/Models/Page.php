@@ -13,6 +13,8 @@ class Page extends Model
 
   protected $dates = [ 'deleted_at' ];
 
+  protected $fillable = [ 'name', 'description', 'content', 'is_active', 'is_draft' ];
+
   /**
    * Return the sluggable configuration array for this model.
    *

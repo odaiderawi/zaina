@@ -70,6 +70,9 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
     Route::apiResource( 'tags', 'TagController' );
     Route::get( 'search-tags/{id}', 'TagController@search_tags' );
 
+    Route::apiResource( 'pages', 'PageController' );
+    Route::get( 'status/{id}', 'PageController@status' );
+
     Route::apiResource( 'authors', 'AuthorController' );
     Route::get( '/search-authors/{id}', 'AuthorController@search_authors' );
 
