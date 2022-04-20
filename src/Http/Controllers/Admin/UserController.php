@@ -28,6 +28,7 @@ class UserController extends ZainaController
         $success['image']        = $user->image;
         $success['user_id']      = $user->id;
         $success['permissions']  = $this->array2json( $user->getAllPermissions()->pluck( 'name' )->toArray() );
+        $success['name']         = $user->display_name;
 
         return response()->json( $success, $this->successStatus );
       } else
