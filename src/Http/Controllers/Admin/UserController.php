@@ -76,9 +76,7 @@ class UserController extends ZainaController
 
   public function show( $id )
   {
-    $user = User::findOrFail( $id );
-
-    return $user;
+    return User::with( [ 'roles' ] )->findOrFail( $id );
 
   }
 
