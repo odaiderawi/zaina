@@ -101,7 +101,8 @@ class UserController extends ZainaController
                         ] );
 
     #Match The Old Password
-    if ( ! Hash::check( $request->old_password, auth()->user()->password ) )
+    
+    if ( ! Hash::check( $request->old_password, Auth::guard( 'api' )->user()->password ) )
     {
       return "error,  Old Password Doesn't match!";
     }
