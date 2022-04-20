@@ -40,7 +40,7 @@ class PageController extends ZainaController
                                    'is_draft',
                                  ] ) );
 
-    $page->created_by = Auth::id();
+    $page->created_by = Auth::guard( 'api' )->id();
 
     $page->save();
 
@@ -68,7 +68,7 @@ class PageController extends ZainaController
                                    'is_draft',
                                  ] ) );
 
-    $page->modified_by = Auth::id();
+    $page->modified_by = Auth::guard( 'api' )->id();
 
     $page->update();
 
