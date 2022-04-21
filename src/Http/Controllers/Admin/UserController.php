@@ -73,7 +73,14 @@ class UserController extends ZainaController
 
   public function types()
   {
-    return Role::all();
+    /** @var User $user */
+    $user = Auth::guard( 'api' )->user();
+    if ( $user->hasRole( 'super_admin' ) )
+    {
+      return Role::all();
+    }
+
+    return Role::query()->where( 'name', '!=', 'super_admin' )->get();
 
   }
 
