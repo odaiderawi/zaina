@@ -67,7 +67,7 @@ class StatisticsController extends ZainaController
     $analytics = Analytics::getAnalyticsService();
 
     $activeNow = $analytics->data_realtime->get(
-      'ga:249173410',
+      'ga:265473479',
       'rt:activeUsers' );
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
