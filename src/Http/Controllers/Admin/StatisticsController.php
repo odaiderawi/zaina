@@ -72,7 +72,7 @@ class StatisticsController extends ZainaController
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
-    $activeNow = $activeNow->rows[0][0];
+    $activeNow = count( $activeNow->rows ) ? $activeNow->rows[0][0] : 0;
 
     $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
 
