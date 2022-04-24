@@ -5,18 +5,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->group( function () {
 
   Route::post( 'login', 'UserController@login' );
-  Route::get( '/user', 'UserController@index' );
-  Route::get( '/user/types', 'UserController@types' );
-  Route::get( '/user/{id}', 'UserController@show' );
-
-  Route::prefix( 'user' )->group( function () {
-    Route::post( 'register', 'UserController@register' );
-    Route::post( 'changePassword', 'UserController@changePassword' );
-    Route::PUT( 'update/{id}', 'UserController@update' );
-    Route::get( 'disable/{id}', 'UserController@disable' );
-  } );
-
-  Route::apiResource( 'ads', 'AdController' );
 
   Route::middleware( [ 'auth:api' ] )->group( function () {
 
@@ -83,29 +71,43 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
       Route::get( '/', 'SettingController@index' );
       Route::post( 'update', 'SettingController@update' );
     } );
+
+    Route::apiResource( 'live-broadcasts', 'LiveBroadcastController' );
+
+    Route::prefix( 'statistics' )->group( function () {
+      Route::get( 'editors/{period}', 'StatisticsController@editors' );
+    } );
+
+    Route::prefix( 'places' )->group( function () {
+      Route::get( '/', 'PlaceController@index' );
+      Route::get( 'free-places', 'PlaceController@getFreePlaces' );
+      Route::post( 'store', 'PlaceController@store' );
+      Route::put( '{id}', 'PlaceController@update' );
+      Route::delete( 'destroy', 'PlaceController@destroy' );
+      Route::get( 'types', 'PlaceController@places_types' );
+      Route::get( 'placements', 'PlaceController@placements' );
+      Route::get( '{id}', 'PlaceController@show' );
+    } );
+
+    Route::post( 'uploadFiles', 'FileController@uploadFiles' );
+
+    Route::get( '/getAllImages/{year}/{month}/{count}/{type?}', 'FileController@getAllImages' );
+    Route::get( '/getFileById/{id}', 'FileController@getFileById' );
+
+    Route::get( '/user', 'UserController@index' );
+    Route::get( '/user/types', 'UserController@types' );
+    Route::get( '/user/{id}', 'UserController@show' );
+
+    Route::prefix( 'user' )->group( function () {
+      Route::post( 'register', 'UserController@register' );
+      Route::post( 'changePassword', 'UserController@changePassword' );
+      Route::PUT( 'update/{id}', 'UserController@update' );
+      Route::get( 'disable/{id}', 'UserController@disable' );
+    } );
+
+    Route::apiResource( 'ads', 'AdController' );
+
   } );
-
-  Route::apiResource( 'live-broadcasts', 'LiveBroadcastController' );
-
-  Route::prefix( 'statistics' )->group( function () {
-    Route::get( 'editors/{period}', 'StatisticsController@editors' );
-  } );
-
-  Route::prefix( 'places' )->group( function () {
-    Route::get( '/', 'PlaceController@index' );
-    Route::get( 'free-places', 'PlaceController@getFreePlaces' );
-    Route::post( 'store', 'PlaceController@store' );
-    Route::put( '{id}', 'PlaceController@update' );
-    Route::delete( 'destroy', 'PlaceController@destroy' );
-    Route::get( 'types', 'PlaceController@places_types' );
-    Route::get( 'placements', 'PlaceController@placements' );
-    Route::get( '{id}', 'PlaceController@show' );
-  } );
-
-  Route::post( 'uploadFiles', 'FileController@uploadFiles' );
-
-  Route::get( '/getAllImages/{year}/{month}/{count}/{type?}', 'FileController@getAllImages' );
-  Route::get( '/getFileById/{id}', 'FileController@getFileById' );
 
 } );
 
