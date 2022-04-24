@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mezian\Zaina\Http\Middleware\LogOutDisabledUsers;
 
 Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->group( function () {
 
   Route::post( 'login', 'UserController@login' );
 
-  Route::middleware( [ 'auth:api' ] )->group( function () {
+  Route::middleware( [ 'auth:api', LogOutDisabledUsers::class ] )->group( function () {
 
     Route::get( 'statistics', 'StatisticsController@statistics' );
     Route::get( 'fetchMostVisitedPages/{period}', 'StatisticsController@fetchMostVisitedPages' );
