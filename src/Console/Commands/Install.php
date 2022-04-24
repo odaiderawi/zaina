@@ -46,20 +46,20 @@ class Install extends Command
     $this->info( " Mezian\Zaina installation started. Please wait..." );
     $this->progressBar->advance();
 
-//        $this->line(' Publishing configs');
-//        $this->executeProcess('php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=configs');
+    $this->line( ' Publishing configs' );
+    $this->executeProcess( 'php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=configs' );
 
-//        $this->line(' Publishing migrations');
-//        $this->executeProcess('php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=migrations');
-//
-//        $this->line(' Publishing seeds');
-//        $this->executeProcess('php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=seeds');
-//
-//        $this->line(' Publishing views');
-//        $this->executeProcess('php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=views');
-//
-//        $this->line(" migrate zaina tables");
-//        $this->executeProcess('php artisan migrate');
+    $this->line( ' Publishing migrations' );
+    $this->executeProcess( 'php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=migrations' );
+
+    $this->line( ' Publishing seeds' );
+    $this->executeProcess( 'php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=seeds' );
+
+    $this->line( ' Publishing views' );
+    $this->executeProcess( 'php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=views' );
+
+    $this->line( " migrate zaina tables" );
+    $this->executeProcess( 'php artisan migrate' );
 
     $this->line( " composer dumpautoload" );
     $this->executeProcess( 'composer dumpautoload' );
