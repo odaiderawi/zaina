@@ -58,8 +58,8 @@ class Install extends Command
     $this->line( ' Publishing views' );
     $this->executeProcess( 'php artisan vendor:publish --provider="Mezian\Zaina\ZainaServiceProvider" --tag=views' );
 
-    $this->line( " migrate zaina tables" );
-    $this->executeProcess( 'php artisan migrate' );
+//    $this->line( " migrate zaina tables" );
+//    $this->executeProcess( 'php artisan migrate' );
 
     $this->line( " composer dumpautoload" );
     $this->executeProcess( 'composer dumpautoload' );
