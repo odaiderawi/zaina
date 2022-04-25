@@ -101,17 +101,21 @@ class StatisticsController extends ZainaController
     } else if ( $period == 'month' )
     {
       $pages = Analytics::fetchMostVisitedPages( Period::months( 0 ), 5 );
-    } else if ( $period == 'last_month' )
+    } else
     {
       $pages = Analytics::fetchMostVisitedPages( Period::months( 1 ), 5 );
     }
 
+    $data = [];
+
     foreach ( $pages as $index => $page )
     {
-      $pages[ $index ]['url'] = config( 'app.name' ) . $page['url'];
+      $data[ $index ]['url']       = config( 'app.name' ) . $page['url'];
+      $data[ $index ]['pageTitle'] = $page['pageTitle'];
+      $data[ $index ]['pageViews'] = $page['pageViews'];
     }
 
-    return $pages;
+    return $data;
 
   }
 }
