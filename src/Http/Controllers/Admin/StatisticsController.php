@@ -77,6 +77,8 @@ class StatisticsController extends ZainaController
     $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
 
     $userTypes = Analytics::fetchUserTypes( Period::days( 1 ) );
+    $browsers  = Analytics::fetchTopBrowsers( Period::days( 1 ) );
+    $referrers = Analytics::fetchTopReferrers( Period::days( 1 ) );
 
     return response()->json( [
                                'pageViews'      => $pageViews,
@@ -84,6 +86,8 @@ class StatisticsController extends ZainaController
                                'active_users'   => $activeNow,
                                'published_news' => $published_news,
                                'types'          => $userTypes,
+                               'browsers'       => $browsers,
+                               'referrers'      => $referrers,
                              ] );
 
   }
