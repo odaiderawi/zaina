@@ -74,7 +74,7 @@ class StatisticsController extends ZainaController
       'dimensions' => 'ga:operatingSystem',
     ] );
 
-    $data = collect( $res['rows'] ?? [] )->map( function ( array $browserRow ) {
+    $operation_system = collect( $res['rows'] ?? [] )->map( function ( array $browserRow ) {
       return [
         'operation_system' => $browserRow[0],
         'sessions'         => (int) $browserRow[1],
@@ -92,14 +92,14 @@ class StatisticsController extends ZainaController
     $referrers = Analytics::fetchTopReferrers( Period::days( 1 ) );
 
     return response()->json( [
-                               'pageViews'      => $pageViews,
-                               'sessions'       => $visitors,
-                               'active_users'   => $activeNow,
-                               'published_news' => $published_news,
-                               'types'          => $userTypes,
-                               'browsers'       => $browsers,
-                               'referrers'      => $referrers,
-                               'data'           => $data,
+                               'pageViews'        => $pageViews,
+                               'sessions'         => $visitors,
+                               'active_users'     => $activeNow,
+                               'published_news'   => $published_news,
+                               'types'            => $userTypes,
+                               'browsers'         => $browsers,
+                               'referrers'        => $referrers,
+                               'operation_system' => $operation_system,
                              ] );
 
   }
