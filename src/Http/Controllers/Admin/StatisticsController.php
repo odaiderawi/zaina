@@ -70,9 +70,16 @@ class StatisticsController extends ZainaController
       'ga:' . settings( 'google_view_id' ),
       'rt:activeUsers' );
 
-    $data = Analytics::performQuery( Period::days( 1 ), 'ga:sessions', [
-      'dimensions' => 'ga:operatingSystem,ga:operatingSystemVersion,ga:browser,ga:browserVersion',
+    $res = Analytics::performQuery( Period::days( 1 ), 'ga:sessions', [
+      'dimensions' => 'ga:operatingSystem',
     ] );
+
+    $data = collect( $res['rows'] ?? [] )->map( function ( array $browserRow ) {
+      return [
+        'operation_system' => $browserRow[0],
+        'sessions'         => (int) $browserRow[1],
+      ];
+    } );
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
