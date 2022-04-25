@@ -67,14 +67,19 @@ class StatisticsController extends ZainaController
     $analytics = Analytics::getAnalyticsService();
 
     $activeNow = $analytics->data_realtime->get(
-      'ga:265473479',
+      'ga:' . settings( 'google_view_id' ),
       'rt:activeUsers' );
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
-    $activeNow = count( $activeNow->rows ) ? $activeNow->rows[0][0] : 0;
+    $activeNow = count( $activeNow->rows ?? [] ) ? $activeNow->rows[0][0] : 0;
 
     $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
+
+    foreach ( $pageViews as $index => $pageView )
+    {
+      $pageView[ $index ]['url'] = config( 'app.name' ) . $pageView->url;
+    }
 
     return response()->json( [
                                'pageViews'      => $pageViews,
