@@ -70,6 +70,12 @@ class StatisticsController extends ZainaController
       'ga:' . settings( 'google_view_id' ),
       'rt:activeUsers' );
 
+    $data = $analytics->data_realtime->get(
+      'ga:' . settings( 'google_view_id' ),
+      'dimensions=ga:operatingSystem,ga:operatingSystemVersion,ga:browser,ga:browserVersion
+metrics=ga:sessions'
+    );
+
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
     $activeNow = count( $activeNow->rows ?? [] ) ? $activeNow->rows[0][0] : 0;
@@ -88,6 +94,7 @@ class StatisticsController extends ZainaController
                                'types'          => $userTypes,
                                'browsers'       => $browsers,
                                'referrers'      => $referrers,
+                               'data'           => $data,
                              ] );
 
   }
