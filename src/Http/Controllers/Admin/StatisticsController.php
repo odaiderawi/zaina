@@ -76,11 +76,6 @@ class StatisticsController extends ZainaController
 
     $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
 
-    foreach ( $pageViews as $index => $pageView )
-    {
-      $pageView[ $index ]['url'] = config( 'app.name' ) . $pageView->url;
-    }
-
     return response()->json( [
                                'pageViews'      => $pageViews,
                                'sessions'       => $visitors,
@@ -109,6 +104,11 @@ class StatisticsController extends ZainaController
     } else if ( $period == 'last_month' )
     {
       $pages = Analytics::fetchMostVisitedPages( Period::months( 1 ), 5 );
+    }
+
+    foreach ( $pages as $index => $page )
+    {
+      $page[ $index ]['url'] = config( 'app.name' ) . $page->url;
     }
 
     return $pages;
