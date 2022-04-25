@@ -108,7 +108,7 @@ class StatisticsController extends ZainaController
 
     foreach ( $pages as $index => $page )
     {
-      $page[ $index ]['url'] = config( 'app.name' ) . $page->url;
+      $pages[ $index ]['url'] = config( 'app.name' ) . $page['url'];
     }
 
     return $pages;
