@@ -70,11 +70,9 @@ class StatisticsController extends ZainaController
       'ga:' . settings( 'google_view_id' ),
       'rt:activeUsers' );
 
-    $data = $analytics->data_realtime->get(
-      'ga:' . settings( 'google_view_id' ),
-      'dimensions=ga:operatingSystem,ga:operatingSystemVersion,ga:browser,ga:browserVersion
-metrics=ga:sessions'
-    );
+    $data = Analytics::performQuery( Period::days( 1 ), 'ga:sessions', [
+      'dimensions' => 'ga:operatingSystem,ga:operatingSystemVersion,ga:browser,ga:browserVersion',
+    ] );
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
@@ -124,7 +122,7 @@ metrics=ga:sessions'
 
     foreach ( $pages as $index => $page )
     {
-      $data[ $index ]['url']       = config( 'app.url' ) . $page['url'];
+      $data[ $index ]['url']       = config( 'app . url' ) . $page['url'];
       $data[ $index ]['pageTitle'] = $page['pageTitle'];
       $data[ $index ]['pageViews'] = $page['pageViews'];
     }
