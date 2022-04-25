@@ -76,11 +76,14 @@ class StatisticsController extends ZainaController
 
     $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
 
+    $userTypes = Analytics::fetchUserTypes();
+
     return response()->json( [
                                'pageViews'      => $pageViews,
                                'sessions'       => $visitors,
                                'active_users'   => $activeNow,
                                'published_news' => $published_news,
+                               'types'          => $userTypes,
                              ] );
 
   }
