@@ -53,6 +53,28 @@ class CategoryController extends ZainaController
 
   }
 
+  public function showInHome( $id )
+  {
+    /** @var Category $category */
+    $category = Category::findOrFail( $id );
+
+    $category->update( [ 'show_in_home' => ! $category->show_in_home ] );
+
+    return response()->json( [ 'success' => 'category show in home changed successfully' ], 200 );
+
+  }
+
+  public function showInNav( $id )
+  {
+    /** @var Category $category */
+    $category = Category::findOrFail( $id );
+
+    $category->update( [ 'show_in_nav' => ! $category->show_in_nav ] );
+
+    return response()->json( [ 'success' => 'category show in nav changed successfully' ], 200 );
+
+  }
+
   public function show( $id )
   {
     return Category::findOrFail( $id );
