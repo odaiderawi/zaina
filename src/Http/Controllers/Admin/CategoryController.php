@@ -2,6 +2,8 @@
 
 namespace Mezian\Zaina\Http\Controllers\Admin;
 
+use Mezian\Zaina\Utils\Response;
+use Illuminate\Support\Str;
 use Mezian\Zaina\Http\Controllers\ZainaController;
 use Mezian\Zaina\Http\Requests\CategoryRequest;
 use Mezian\Zaina\Models\Category;
@@ -13,6 +15,13 @@ use Mezian\Zaina\Models\Category;
  */
 class CategoryController extends ZainaController
 {
+  public $response;
+
+  public function __construct()
+  {
+
+    $this->response = Response::make( Response::HTTP_OK, true );
+  }
 
   public function index()
   {
@@ -37,7 +46,29 @@ class CategoryController extends ZainaController
 
   public function destroy( $id )
   {
-    Category::findOrFail( $id )->delete();
+    $category = Category::findOrFail( $id );
+
+    $reasons = $category->delete();
+
+    // check if the customer is linked
+    if ( $reasons and is_array( $reasons ) )
+    {
+      foreach ( $reasons as $key => $reason )
+      {
+        $this->response->addError( $reason, ucfirst( Str::singular( $key ) ) . Response::CODE_RESOURCE_LINKED, $key, [ 'category_id' => $category->id ] );
+      }
+
+      $errors = __( 'messages.failed.delete', [
+        'resource' => 'category',
+        'id'       => $category->name,
+      ] );
+
+      return response()->json( [
+                                 'success' => 'لا يمكن حذف التصنيف',
+                                 'reasons' => $errors,
+                               ], 409 );
+
+    }
 
     return response()->json( [ 'success' => 'category deleted successfully' ], 200 );
   }

@@ -118,4 +118,63 @@ class Category extends Model
     return $this->hasMany( Article::class, 'category_id' );
   }
 
+  public function delete()
+  {
+    if ( $usage = $this->isUsed() )
+    {
+      return $usage;
+    }
+
+    return parent::delete();
+  }
+
+  /**
+   * Determine if the user is linked to any relation
+   *
+   * @return array|bool
+   */
+  public function isUsed()
+  {
+    $usage = [];
+
+    // used in sales orders
+    $this->loadCount( 'news' );
+    $this->loadCount( 'children' );
+    $this->loadCount( 'videos' );
+    $this->loadCount( 'articles' );
+    if ( $this->news_count )
+    {
+      $usage['news'] = trans_choice( 'messages.currently_used', $this->news_count, [
+        'resource' => 'التصنيف',
+        'model'    => 'category(' . $this->name . ')',
+      ] );
+    }
+
+    if ( $this->children_count )
+    {
+      $usage['children'] = trans_choice( 'messages.currently_used', $this->children_count, [
+        'resource' => 'التصنيف',
+        'model'    => 'category(' . $this->name . ')',
+      ] );
+    }
+
+    if ( $this->videos_count )
+    {
+      $usage['videos'] = trans_choice( 'messages.currently_used', $this->videos_count, [
+        'resource' => 'التصنيف',
+        'model'    => 'category(' . $this->name . ')',
+      ] );
+    }
+
+    if ( $this->articles_count )
+    {
+      $usage['articles'] = trans_choice( 'messages.currently_used', $this->articles_count, [
+        'resource' => 'التصنيف',
+        'model'    => 'category(' . $this->name . ')',
+      ] );
+    }
+
+    return count( $usage ) ? $usage : false;
+  }
+
 }
