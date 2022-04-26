@@ -2,6 +2,7 @@
 
 namespace Mezian\Zaina\Models;
 
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Mezian\Zaina\Traits\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class Category extends Model
   ];
 
   protected $with    = [ 'children', 'metas', 'publisher' ];
-  protected $appends = [ 'url' ];
+  protected $appends = [ 'url', 'is_used' ];
 
   protected static function boot()
   {
@@ -175,6 +176,16 @@ class Category extends Model
     }
 
     return count( $usage ) ? $usage : false;
+  }
+
+  public function getIsUsedAttribute()
+  {
+    if ( request()->route()->getPrefix() == 'admin' )
+    {
+      return (bool) $this->isUsed();
+    }
+
+    return true;
   }
 
 }
