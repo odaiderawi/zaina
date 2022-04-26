@@ -180,12 +180,17 @@ class Category extends Model
 
   public function getIsUsedAttribute()
   {
-    if ( request()->route()->getPrefix() == 'admin' )
+    $reasons = $this->isUsed();
+    if ( request()->route()->getName() === 'categories.all' )
     {
-      return (bool) $this->isUsed();
+      if ( is_array( $reasons ) and count( $reasons ) )
+      {
+        return true;
+      }
+
     }
 
-    return true;
+    return false;
   }
 
 }

@@ -56,7 +56,7 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
       Route::get( 'show-in-nav/{id}', 'CategoryController@showInNav' );
       Route::get( 'parents', 'CategoryController@parents' );
       Route::get( 'sorts', 'CategoryController@getAvailableSorts' );
-      Route::get( 'get-categories', 'CategoryController@getCategories' );
+      Route::get( 'get-categories', 'CategoryController@getCategories' )->name( 'categories.all' );
     } );
 
     Route::apiResource( 'tags', 'TagController' );
