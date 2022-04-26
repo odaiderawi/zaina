@@ -50,10 +50,10 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
     } );
 
     Route::apiResource( 'category', 'CategoryController' );
-    Route::get( 'status/{id}', 'CategoryController@status' );
-    Route::get( 'show-in-home/{id}', 'CategoryController@showInHome' );
-    Route::get( 'show-in-nav/{id}', 'CategoryController@showInNav' );
     Route::prefix( 'categories' )->group( function () {
+      Route::get( 'status/{id}', 'CategoryController@status' );
+      Route::get( 'show-in-home/{id}', 'CategoryController@showInHome' );
+      Route::get( 'show-in-nav/{id}', 'CategoryController@showInNav' );
       Route::get( 'parents', 'CategoryController@parents' );
       Route::get( 'sorts', 'CategoryController@getAvailableSorts' );
       Route::get( 'get-categories', 'CategoryController@getCategories' );
