@@ -80,7 +80,7 @@ class StatisticsController extends ZainaController
 
     $period   = $this->getPeriodInDays( $time );
     $carbon   = $this->getCarbonInDays( $time )[0];
-    $operator = $this->getCarbonInDays( $time )[1];
+//    $operator = $this->getCarbonInDays( $time )[1];
 
     $total = Analytics::fetchTotalVisitorsAndPageViews( $period );
 
@@ -98,7 +98,7 @@ class StatisticsController extends ZainaController
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
 
-    $published_news = News::whereDate( 'created_at', $operator, $carbon )->count();
+    $published_news = News::whereDate( 'created_at', '>=', $carbon )->count();
 
     $userTypes = Analytics::fetchUserTypes( $period );
     $browsers  = Analytics::fetchTopBrowsers( $period );
