@@ -9,7 +9,8 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
 
   Route::middleware( [ 'auth:api', LogOutDisabledUsers::class ] )->group( function () {
 
-    Route::get( 'statistics', 'StatisticsController@statistics' );
+    Route::get( 'statistics/{time}', 'StatisticsController@statistics' );
+    Route::get( 'statistics/real-time', 'StatisticsController@getRealTimeUsers' );
     Route::get( 'fetchMostVisitedPages/{period}', 'StatisticsController@fetchMostVisitedPages' );
 
     Route::apiResource( 'news', 'NewsController' );

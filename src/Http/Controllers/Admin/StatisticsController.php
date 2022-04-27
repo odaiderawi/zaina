@@ -59,18 +59,32 @@ class StatisticsController extends ZainaController
 
   }
 
-  public function statistics()
+  public function getRealTimeUsers()
   {
-
-    $total = Analytics::fetchTotalVisitorsAndPageViews( Period::days( 1 ) );
-
     $analytics = Analytics::getAnalyticsService();
 
     $activeNow = $analytics->data_realtime->get(
       'ga:' . settings( 'google_view_id' ),
       'rt:activeUsers' );
 
-    $res = Analytics::performQuery( Period::days( 1 ), 'ga:sessions', [
+    $activeNow = count( $activeNow->rows ?? [] ) ? $activeNow->rows[0][0] : 0;
+
+    return response()->json( [
+                               'active_users' => $activeNow,
+                             ] );
+
+  }
+
+  public function statistics( $time = 'day' )
+  {
+
+    $period   = $this->getPeriodInDays( $time );
+    $carbon   = $this->getCarbonInDays( $time )[0];
+    $operator = $this->getCarbonInDays( $time )[1];
+
+    $total = Analytics::fetchTotalVisitorsAndPageViews( $period );
+
+    $res = Analytics::performQuery( $period, 'ga:sessions', [
       'dimensions' => 'ga:operatingSystem',
     ] );
 
@@ -83,18 +97,16 @@ class StatisticsController extends ZainaController
 
     $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
     $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
-    $activeNow = count( $activeNow->rows ?? [] ) ? $activeNow->rows[0][0] : 0;
 
-    $published_news = News::whereDate( 'created_at', Carbon::today() )->count();
+    $published_news = News::whereDate( 'created_at', $operator, $carbon )->count();
 
-    $userTypes = Analytics::fetchUserTypes( Period::days( 1 ) );
-    $browsers  = Analytics::fetchTopBrowsers( Period::days( 1 ) );
-    $referrers = Analytics::fetchTopReferrers( Period::days( 1 ) );
+    $userTypes = Analytics::fetchUserTypes( $period );
+    $browsers  = Analytics::fetchTopBrowsers( $period );
+    $referrers = Analytics::fetchTopReferrers( $period );
 
     return response()->json( [
                                'pageViews'        => $pageViews,
                                'sessions'         => $visitors,
-                               'active_users'     => $activeNow,
                                'published_news'   => $published_news,
                                'types'            => $userTypes,
                                'browsers'         => $browsers,
@@ -102,6 +114,57 @@ class StatisticsController extends ZainaController
                                'operation_system' => $operation_system,
                              ] );
 
+  }
+
+  private function getPeriodInDays( $time ): Period
+  {
+    if ( $time == 'day' )
+    {
+      $period = Period::days( 0 );
+
+    } else if ( $time == 'yesterday' )
+    {
+      $period = Period::days( 1 );
+    } else if ( $time == 'week' )
+    {
+      $period = Period::days( 7 );
+    } else if ( $time == 'month' )
+    {
+      $period = Period::months( 0 );
+    } else
+    {
+      $period = Period::months( 1 );
+    }
+
+    return $period;
+  }
+
+  private function getCarbonInDays( $time ): array
+  {
+    if ( $time == 'day' )
+    {
+      $period   = Carbon::today();
+      $operator = '=';
+
+    } else if ( $time == 'yesterday' )
+    {
+      $period   = Carbon::yesterday();
+      $operator = '=';
+    } else if ( $time == 'week' )
+    {
+      $period   = Carbon::now()->subWeek();
+      $operator = '>';
+    } else if ( $time == 'month' )
+    {
+      $period   = Carbon::now()->startOfMonth();
+      $operator = '>';
+    } else
+    {
+      $period   = Carbon::now()->subMonth();
+      $operator = '>';
+    }
+
+    return [ $period, $operator ];
   }
 
   public function fetchMostVisitedPages( $period )
