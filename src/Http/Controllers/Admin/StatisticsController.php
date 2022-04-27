@@ -95,8 +95,8 @@ class StatisticsController extends ZainaController
       ];
     } );
 
-    $visitors  = count( $total ) ? $total[1]['visitors'] : 0;
-    $pageViews = count( $total ) ? $total[1]['pageViews'] : 0;
+    $visitors  = $total[1]['visitors'] ?? 0;
+    $pageViews = $total[1]['pageViews'] ?? 0;
 
     $published_news = News::whereDate( 'created_at', $operator, $carbon )->count();
 
