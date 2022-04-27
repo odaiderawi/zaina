@@ -5,6 +5,8 @@ use Mezian\Zaina\Http\Middleware\LogOutDisabledUsers;
 
 Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->group( function () {
 
+  Route::get( 'statistics/{time}', 'StatisticsController@statistics' );
+
   Route::post( 'login', 'UserController@login' );
 
   Route::middleware( [ 'auth:api', LogOutDisabledUsers::class ] )->group( function () {
