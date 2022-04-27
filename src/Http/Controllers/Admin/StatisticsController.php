@@ -172,20 +172,20 @@ class StatisticsController extends ZainaController
 
     if ( $period == 'day' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::days( 0 ), 5 );
+      $pages = Analytics::fetchMostVisitedPages( Period::days( 0 ), 9 );
 
     } else if ( $period == 'yesterday' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::days( 1 ), 5 );
+      $pages = Analytics::fetchMostVisitedPages( Period::days( 1 ), 9 );
     } else if ( $period == 'week' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::days( 7 ), 5 );
+      $pages = Analytics::fetchMostVisitedPages( Period::days( 7 ), 9 );
     } else if ( $period == 'month' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::months( 0 ), 5 );
+      $pages = Analytics::fetchMostVisitedPages( Period::months( 0 ), 9 );
     } else
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::months( 1 ), 5 );
+      $pages = Analytics::fetchMostVisitedPages( Period::months( 1 ), 9 );
     }
 
     $data = [];
