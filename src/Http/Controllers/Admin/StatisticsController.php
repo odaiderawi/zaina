@@ -101,7 +101,7 @@ class StatisticsController extends ZainaController
     foreach ( $total as $item )
     {
       $visitors  += $item['visitors'];
-      $pageViews += $item['$pageViews'];
+      $pageViews += $item['pageViews'];
     }
 
     $published_news = News::whereDate( 'created_at', $operator, $carbon )->count();
