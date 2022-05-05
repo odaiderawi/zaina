@@ -120,11 +120,11 @@ class StatisticsController extends ZainaController
   {
     if ( $time == 'day' )
     {
-      $period = Period::days( 1 );
+      $period = Period::days( 0 );
 
     } else if ( $time == 'yesterday' )
     {
-      $period = Period::days( 2 );
+      $period = Period::days( 1 );
     } else if ( $time == 'week' )
     {
       $period = Period::days( 7 );
