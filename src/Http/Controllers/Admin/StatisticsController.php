@@ -95,7 +95,10 @@ class StatisticsController extends ZainaController
       ];
     } );
 
-    dd( $total );
+    return response()->json( [
+                               'pageViews' => $total,
+
+                             ] );
 
     $visitors  = $total[1]['visitors'] ?? 0;
     $pageViews = $total[1]['pageViews'] ?? 0;
