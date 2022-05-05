@@ -122,7 +122,7 @@ class StatisticsController extends ZainaController
 
   }
 
-  private function getPeriodInDays( $time ): Period
+  private function getPeriodInDays( $time )
   {
     if ( $time == 'day' )
     {
