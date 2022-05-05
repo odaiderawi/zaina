@@ -78,7 +78,7 @@ class FileController extends ZainaController
     }
   }
 
-  public function getAllImages( $year, $month, $count, $type = File::TYPE_PHOTO )
+  public function getAllImages( $year, $month, $count, $type = File::TYPE_PHOTO, $search = null )
   {
 
     switch ( $type )
@@ -96,32 +96,31 @@ class FileController extends ZainaController
 
     if ( $year == 0 && $month == 0 )
     {
-      $photos = File::where( 'type', $file_type )->orderBy( 'id', 'Desc' )->paginate( $count );
+      $photos = File::where( 'type', $file_type );
 
     } else if ( $month == 0 )
     {
       $photos = File::whereYear( 'created_at', '=', $year )
-                    ->where( 'type', $file_type )
-                    ->orderBy( 'id', 'Desc' )
-                    ->paginate( $count );
+                    ->where( 'type', $file_type );
 
     } else if ( $year == 0 )
     {
       $photos = Photo::whereMonth( 'created_at', $month )
-                     ->where( 'type', $file_type )
-                     ->orderBy( 'id', 'Desc' )
-                     ->paginate( $count );
+                     ->where( 'type', $file_type );
 
     } else
     {
       $photos = File::where( 'type', $file_type )
                     ->whereYear( 'created_at', $year )
-                    ->whereMonth( 'created_at', $month )
-                    ->orderBy( 'id', 'Desc' )
-                    ->paginate( $count );
+                    ->whereMonth( 'created_at', $month );
     }
 
-    return $photos;
+    $photos = $photos->when( $search, function ( $query ) use ( $search ) {
+      $query->where( 'name', 'LIKE', '%' . $search . '%' );
+    } );
+
+    return $photos->orderBy( 'id', 'Desc' )
+                  ->paginate( $count );
 
   }
 
