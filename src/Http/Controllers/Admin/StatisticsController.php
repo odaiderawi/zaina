@@ -130,7 +130,7 @@ class StatisticsController extends ZainaController
 
     } else if ( $time == 'yesterday' )
     {
-      $period = Period::days( 1 );
+      $period = [ 'startDate' => Carbon::yesterday(), 'endDate' => Carbon::yesterday()->subDays( 0 )->startOfDay() ];
     } else if ( $time == 'week' )
     {
       $period = Period::days( 7 );
