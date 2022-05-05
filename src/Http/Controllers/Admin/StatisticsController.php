@@ -122,7 +122,7 @@ class StatisticsController extends ZainaController
 
   }
 
-  private function getPeriodInDays( $time )
+  private function getPeriodInDays( $time ): Period
   {
     if ( $time == 'day' )
     {
@@ -130,7 +130,7 @@ class StatisticsController extends ZainaController
 
     } else if ( $time == 'yesterday' )
     {
-      $period = [ 'startDate' => Carbon::yesterday(), 'endDate' => Carbon::yesterday()->subDays( 0 )->startOfDay() ];
+      $period = Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 0 )->startOfDay() );
     } else if ( $time == 'week' )
     {
       $period = Period::days( 7 );
