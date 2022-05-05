@@ -95,18 +95,14 @@ class StatisticsController extends ZainaController
       ];
     } );
 
-    return $total;
+    $visitors  = 0;
+    $pageViews = 0;
 
-    $visitors  = array_reduce( $total, function ( $sum, $entry ) {
-      $sum += $entry->visitors;
-
-      return $sum;
-    },                         0 );
-    $pageViews = array_reduce( $total, function ( $sum, $entry ) {
-      $sum += $entry->pageViews;
-
-      return $sum;
-    },                         0 );
+    foreach ( $total as $item )
+    {
+      $visitors  += $item['visitors'];
+      $pageViews += $item['$pageViews'];
+    }
 
     $published_news = News::whereDate( 'created_at', $operator, $carbon )->count();
 
