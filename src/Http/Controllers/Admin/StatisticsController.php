@@ -133,7 +133,7 @@ class StatisticsController extends ZainaController
       $period = Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 0 )->startOfDay() );
     } else if ( $time == 'week' )
     {
-      $period = Period::days( 7 );
+      $period = Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 7 )->startOfDay() );
     } else if ( $time == 'month' )
     {
       $period = Period::months( 0 );
@@ -185,7 +185,7 @@ class StatisticsController extends ZainaController
       $pages = Analytics::fetchMostVisitedPages( Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 0 )->startOfDay() ), 8 );
     } else if ( $period == 'week' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::days( 7 ), 8 );
+      $pages = Analytics::fetchMostVisitedPages( Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 7 )->startOfDay() ), 8 );
     } else if ( $period == 'month' )
     {
       $pages = Analytics::fetchMostVisitedPages( Period::months( 0 ), 8 );
