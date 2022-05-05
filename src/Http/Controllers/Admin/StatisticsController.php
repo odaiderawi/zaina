@@ -95,6 +95,8 @@ class StatisticsController extends ZainaController
       ];
     } );
 
+    dd( $total );
+
     $visitors  = $total[1]['visitors'] ?? 0;
     $pageViews = $total[1]['pageViews'] ?? 0;
 
