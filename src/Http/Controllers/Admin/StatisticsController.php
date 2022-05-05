@@ -95,6 +95,8 @@ class StatisticsController extends ZainaController
       ];
     } );
 
+    return $total;
+
     $visitors  = array_reduce( $total, function ( $sum, $entry ) {
       $sum += $entry->visitors;
 
