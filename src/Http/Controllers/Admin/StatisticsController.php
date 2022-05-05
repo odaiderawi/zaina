@@ -182,7 +182,7 @@ class StatisticsController extends ZainaController
 
     } else if ( $period == 'yesterday' )
     {
-      $pages = Analytics::fetchMostVisitedPages( Period::days( 1 ), 8 );
+      $pages = Analytics::fetchMostVisitedPages( Period::create( Carbon::yesterday(), Carbon::yesterday()->subDays( 0 )->startOfDay() ), 8 );
     } else if ( $period == 'week' )
     {
       $pages = Analytics::fetchMostVisitedPages( Period::days( 7 ), 8 );
