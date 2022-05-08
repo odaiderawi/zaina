@@ -3,6 +3,7 @@
 namespace Mezian\Zaina\Http\Controllers\Admin;
 
 use Google\Service\Analytics;
+use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Mezian\Zaina\Http\Controllers\ZainaController;
 use Mezian\Zaina\Http\Requests\FileRequest;
@@ -156,6 +157,18 @@ class FileController extends ZainaController
   public function getFileById( $id )
   {
     return File::findOrFail( $id );
+  }
+
+  public function update( Request $request, $id )
+  {
+    $request->validate( [
+                          'name' => 'required|string',
+                        ] );
+
+    $file = File::query()->findOrFail( $id );
+    $file->update( [ 'name' => $request->input( 'name' ) ] );
+
+    return $file;
 
   }
 

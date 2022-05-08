@@ -97,6 +97,7 @@ Route::prefix( 'admin' )->namespace( 'Mezian\Zaina\Http\Controllers\Admin' )->gr
 
     Route::get( '/getAllImages/{year}/{month}/{count}/{type?}/{search?}', 'FileController@getAllImages' );
     Route::get( '/getFileById/{id}', 'FileController@getFileById' );
+    Route::put( '/file/update/{id}', 'FileController@update' );
 
     Route::get( '/user', 'UserController@index' );
     Route::get( '/user/types', 'UserController@types' );
