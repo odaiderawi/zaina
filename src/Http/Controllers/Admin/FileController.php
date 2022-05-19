@@ -4,6 +4,7 @@ namespace Mezian\Zaina\Http\Controllers\Admin;
 
 use Google\Service\Analytics;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Mezian\Zaina\Http\Controllers\ZainaController;
 use Mezian\Zaina\Http\Requests\FileRequest;
@@ -32,14 +33,15 @@ class FileController extends ZainaController
 
     if ( $file = $request->file( 'file' ) )
     {
-      $name = $file->getClientOriginalName();
-      $ext  = strrchr( $name, '.' );
-      $name = time() . '' . str_random( 5 ) . $ext;
+      $name     = $file->getClientOriginalName();
+      $ext      = strrchr( $name, '.' );
+      $time     = time();
+      $name     = $time . '' . Str::random( 5 ) . $ext;
+      $nameWebp = $time . '' . Str::random( 5 );
 
       $year_folder  = date( "Y" );
       $month_folder = date( "m" );
 
-      $file->storeAs( '/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder, $name );
       $uploadfile->url         = 'uploads/uploadCenter/' . $year_folder . '/' . $month_folder . '/' . $name;
       $uploadfile->name        = $file->getClientOriginalName();
       $uploadfile->description = 'upload center';
@@ -49,15 +51,23 @@ class FileController extends ZainaController
       if ( $ext == 'jpg' || $ext == 'png' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp' || $ext == 'JPG' || $ext == 'PNG'
            || $ext == 'JPEG' || $ext == 'GIF' || $ext == 'BMP' )
       {
+        Image::make( $file->getRealPath() )
+             ->encode( 'webp', 100 )
+             ->save( storage_path( 'app/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder . '/' . $nameWebp . '.webp' ) );
+
         $uploadfile->type = File::TYPE_PHOTO;
         $uploadfile->save();
+
+        $name = $nameWebp . 'webp';
       } else if ( $ext == 'avi' || $ext == 'wmv' || $ext == 'mp4' || $ext == 'flv' )
       {
+        $file->storeAs( '/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder, $name );
         $uploadfile->type = File::TYPE_VIDEO;
         $uploadfile->save();
 
       } else
       {
+        $file->storeAs( '/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder, $name );
         $uploadfile->type = File::TYPE_FILE;
         $uploadfile->save();
       }
