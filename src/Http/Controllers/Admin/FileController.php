@@ -56,9 +56,10 @@ class FileController extends ZainaController
              ->save( storage_path( 'app/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder . '/' . $nameWebp . '.webp' ) );
 
         $uploadfile->type = File::TYPE_PHOTO;
+        $uploadfile->url  = 'uploads/uploadCenter/' . $year_folder . '/' . $month_folder . '/' . $nameWebp . '.webp';
         $uploadfile->save();
 
-        $name = $nameWebp . 'webp';
+        $name = $nameWebp . '.webp';
       } else if ( $ext == 'avi' || $ext == 'wmv' || $ext == 'mp4' || $ext == 'flv' )
       {
         $file->storeAs( '/public/uploads/uploadCenter/' . $year_folder . '/' . $month_folder, $name );
