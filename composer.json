@@ -15,7 +15,7 @@
     "spatie/laravel-analytics": "^3.6",
     "spatie/laravel-paginateroute": "^2.7",
     "intervention/image": "^2.4",
-    "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+    "guzzlehttp/guzzle": "^6.3.1|^7.4.3",
     "staudenmeir/eloquent-eager-limit": "^1.0",
     "toolkito/larasap": "^1.2.6"
   },
