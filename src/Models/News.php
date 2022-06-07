@@ -314,7 +314,7 @@ class News extends Model
 
   public function parseDate( $value )
   {
-    return Carbon::createFromFormat( 'Y-m-d H:i:s', $value )->format( 'Y-m-d H:i:s' );
+    return Carbon::parse( $value )->format( 'Y-m-d H:i:s' );
   }
 
   public function getUrlAttribute()
