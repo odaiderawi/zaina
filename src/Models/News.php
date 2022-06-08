@@ -20,7 +20,7 @@ class News extends Model
 
   public $domain;
 
-  protected $dates = [ 'deleted_at', 'date_to_publish' ];
+  protected $dates = [ 'deleted_at' ];
 
   protected $with    = [ 'tags', 'photos', 'publisher', 'category', 'metas', 'type' ];
   protected $appends = [ 'url' ];
