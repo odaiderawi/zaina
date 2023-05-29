@@ -11,6 +11,7 @@ Route::namespace( 'Mezian\Zaina\Http\Controllers' )->group( function () {
     Route::get( '/category_sitemap.xml', 'SitemapController@categories' );
     Route::get( '/google_news_sitemap.xml', 'SitemapController@google_news' );
     Route::get( '/index_sitemap.xml', 'SitemapController@index' );
+    
   } );
 
   Route::prefix( 'feed' )->name( 'feed.' )->group( function () {
