@@ -3,6 +3,7 @@
 namespace Mezian\Zaina\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Meta extends Model
 {
@@ -43,10 +44,11 @@ class Meta extends Model
     }
     if ( ( $metas = Meta::where( 'metaable_id', $model->id )->where( 'metaable_type', $model->getMorphClass() )->first() ) != null )
     {
+      Log::info( 'Meta', $data );
       return $metas->update( [
                                'slug'               => $model->slug,
                                'seo_title'          => @$data['seo_title'] ? @$data['seo_title'] : ( @$data['title'] ? @$data['title'] : ( @$data['name'] ? @$data['name'] : '' ) ),
-                               'seo_description'    => @$data['seo_description'] ? @$data['seo_description'] : ( @$data['content'] ? str_limit( @$data['content'], 297, '' ) : ( @$data['description'] ? str_limit( @$data['description'], 297, '' ) : '' ) ),
+                               'seo_description'    => $data['seo_description'],
                                'is_amp'             => @$data['is_amp'],
                                'social_title'       => @$data['social_title'] ? @$data['social_title'] : ( @$data['title'] ? @$data['title'] : ( @$data['name'] ? @$data['name'] : '' ) ),
                                'social_description' => @$data['social_description'] ? @$data['social_description'] : ( @$data['content'] ? str_limit( @$data['content'], 297, '' ) : ( @$data['description'] ? str_limit( @$data['description'], 297, '' ) : '' ) ),
