@@ -99,7 +99,7 @@ class News extends Model
     } );
 
     self::created( function ( $news ) {
-      Meta::data( $news, request()->all() );
+//      Meta::data( $news, request()->all() );
 
     } );
 
@@ -111,8 +111,6 @@ class News extends Model
     } );
 
     self::updated( function ( $news ) {
-      Log::info( 'Meta' );
-      Meta::data( $news, request()->all() );
       $news->modified_by = Auth::user()->id;
     } );
   }

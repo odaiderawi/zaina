@@ -4,6 +4,7 @@ namespace Mezian\Zaina\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Mezian\Zaina\Models\Meta;
 use Mezian\Zaina\Models\News;
 use Mezian\Zaina\Models\Photo;
 use Mezian\Zaina\Models\Tag;
@@ -194,6 +195,8 @@ class NewsRequest extends FormRequest
     {
       News::shareTwitter( $news );
     }
+
+    Meta::data( $news, $data );
 
 //        if ($this->method() == 'POST' && (!Request::is('*/draft'))) News::pushNotification($news);
 
