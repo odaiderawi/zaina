@@ -140,6 +140,8 @@ class NewsRequest extends FormRequest
 
       $news = News::findOrFail( intval( $data['id'] ) );
 
+      Meta::data( $news, $data );
+
     } else
     {
       /** @var News $news */
@@ -195,8 +197,6 @@ class NewsRequest extends FormRequest
     {
       News::shareTwitter( $news );
     }
-
-    Meta::data( $news, $data );
 
 //        if ($this->method() == 'POST' && (!Request::is('*/draft'))) News::pushNotification($news);
 
