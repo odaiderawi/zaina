@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mezian\Zaina\Traits\SluggableTrait;
 use Mezian\Zaina\Traits\TaggableTrait;
@@ -110,6 +111,7 @@ class News extends Model
     } );
 
     self::updated( function ( $news ) {
+      Log::info( 'Meta' );
       Meta::data( $news, request()->all() );
       $news->modified_by = Auth::user()->id;
     } );
